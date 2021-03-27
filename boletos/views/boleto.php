@@ -3,7 +3,7 @@
 <html lang="en"> 
 <head>
 	<meta charset="utf-8">
-	<title>S4TI Boletos</title>
+	<title>Boletos</title>
  
 </head> <body>
 	
