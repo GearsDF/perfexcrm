@@ -1,6 +1,0 @@
-{
-    "require": {
-        "openboleto/openboleto": "dev-master",
-	"andersondanilo/cnab_php": "1.3.*"
-    }
-}
