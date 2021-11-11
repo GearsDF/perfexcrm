@@ -21,16 +21,14 @@ class Retornobanco extends AdminController
 		$data['title'] = _l('Retorno');
         $this->load->view('retorno', $data);
     }
-
-
 	
     public function processar ()
     {
-		$cnabFactory = new Cnab\Factory();
-		$fileName = $_FILES['arquivo']['tmp_name'];
+	$cnabFactory = new Cnab\Factory();
+	$fileName = $_FILES['arquivo']['tmp_name'];
         $arquivo = $cnabFactory->createRetorno($fileName);
-		$detalhes = $arquivo->listDetalhes();
-		$data = array();
+	$detalhes = $arquivo->listDetalhes();
+	$data = array();
 		
         foreach($detalhes as $detalhe)
         {
@@ -40,31 +38,28 @@ class Retornobanco extends AdminController
                 $nossoNumero     = $detalhe->getNossoNumero();
                 $NumeroDocumento = $detalhe->getNumeroDocumento();
                 $valorRecebido   = $detalhe->getValorRecebido();
-				$valortitulo     = $detalhe->getValorTitulo();
+		$valortitulo     = $detalhe->getValorTitulo();
                 $dataPagamento   = $detalhe->getDataOcorrencia();
                 $carteira        = $detalhe->getCarteira();
                 $ocorrencia      = $detalhe->getCodigo();
                 $descricao       = $detalhe->getDescricaoLiquidacao();
-
-				$date =		date('Y-m-d');
-				$daterecorded = date('Y-m-d H:i:s');
+		$date =		date('Y-m-d');
+		$daterecorded = date('Y-m-d H:i:s');
 
                 if($ocorrencia == '06')
-				{
-					
-					$this->boletos_model->update_invoice($nossoNumero);
+			{	
+				$this->boletos_model->update_invoice($nossoNumero);
+				$this->load->model('invoices_model');
+				$invoice = $this->invoices_model->get($nossoNumero);
+				if( $invoice ){
+					$dbResult = $this->db->query("INSERT INTO tblinvoicepaymentrecords (invoiceid, amount, paymentmode, date, daterecorded, note) VALUES ('$nossoNumero', '$valortitulo', 2, '$date', '$daterecorded', '$descricao')" );	
 
-					$this->load->model('invoices_model');
-					$invoice = $this->invoices_model->get($nossoNumero);
-					if( $invoice ){
-						$dbResult = $this->db->query("INSERT INTO tblinvoicepaymentrecords (invoiceid, amount, paymentmode, date, daterecorded, note) VALUES ('$nossoNumero', '$valortitulo', 2, '$date', '$daterecorded', '$descricao')" );	
-
-					}else{
-						$result = 'NOSSO NUMERO NAO ENCONTRADO';
-					}
+				}else{
+					$result = 'NOSSO NUMERO NAO ENCONTRADO';
+				}
 					
-				} else {
-				  $result = 'BOLETO NÃO BAIXADO PELO MOTIVO';
+			} else {
+				$result = 'BOLETO NÃO BAIXADO PELO MOTIVO';
 				}
 
 				$data['dados'][$nossoNumero]['resultado'] = $result;
@@ -74,7 +69,6 @@ class Retornobanco extends AdminController
         }
 
         $this->load->view('relatorio', $data);
-         
-      
+
     }
 }
