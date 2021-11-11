@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $aColumns = [
     'number',
     'date',
-	'clientnote',
+    'clientnote',
      get_sql_select_client_company(),
     'duedate',
     'total',
@@ -27,7 +27,7 @@ $aColumns = hooks()->apply_filters('invoices_table_sql_columns', $aColumns);
 $result = data_tables_init($aColumns, $sIndexColumn, $sTable, $join, $where, [
     db_prefix() . 'invoices.id',
     db_prefix() . 'invoices.clientid',
-	db_prefix() . 'invoices.clientnote',
+    db_prefix() . 'invoices.clientnote',
     'number',
     'duedate',
     db_prefix(). 'currencies.name as currency_name',
@@ -47,8 +47,8 @@ foreach ($statuses as $status) {
 
 foreach ($rResult as $aRow) {
     $row = [];
-	
-	$row[] = '<div class="checkbox"><input type="checkbox" value="' . $aRow['id'] . '"><label></label></div>';
+
+    $row[] = '<div class="checkbox"><input type="checkbox" value="' . $aRow['id'] . '"><label></label></div>';
 
     $numberOutput = '';
 	
@@ -62,9 +62,9 @@ foreach ($rResult as $aRow) {
 	
     $row[] = $aRow['id'];
 	
-	$row[] = _d($aRow['date']);
+    $row[] = _d($aRow['date']);
 		
-	$row[] = _d($aRow['duedate']);
+    $row[] = _d($aRow['duedate']);
 
     $row[] = app_format_money($aRow['total'], $aRow['currency_name']);
 
