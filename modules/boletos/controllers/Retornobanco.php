@@ -7,7 +7,7 @@ class Retornobanco extends AdminController
     public function __construct()
     {
         parent::__construct();
-		$this->load->model('boletos_model');
+	$this->load->model('boletos_model');
      
     }
 
@@ -18,7 +18,7 @@ class Retornobanco extends AdminController
 
     public function list_retorno($id = '')
     {
-		$data['title'] = _l('Retorno');
+	$data['title'] = _l('Retorno');
         $this->load->view('retorno', $data);
     }
 	
@@ -52,7 +52,7 @@ class Retornobanco extends AdminController
 				$this->load->model('invoices_model');
 				$invoice = $this->invoices_model->get($nossoNumero);
 				if( $invoice ){
-					$dbResult = $this->db->query("INSERT INTO tblinvoicepaymentrecords (invoiceid, amount, paymentmode, date, daterecorded, note) VALUES ('$nossoNumero', '$valortitulo', 2, '$date', '$daterecorded', '$descricao')" );	
+				$dbResult = $this->db->query("INSERT INTO tblinvoicepaymentrecords (invoiceid, amount, paymentmode, date, daterecorded, note) VALUES ('$nossoNumero', '$valortitulo', 2, '$date', '$daterecorded', '$descricao')" );	
 
 				}else{
 					$result = 'NOSSO NUMERO NAO ENCONTRADO';
