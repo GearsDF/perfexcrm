@@ -42,17 +42,16 @@ class Remessas_model extends App_Model
 
     public function get($id = '', $where = [])
     {
-		$this->db->select('*');
-	    $this->db->from(db_prefix() . 'invoices');
+	$this->db->select('*');
+	$this->db->from(db_prefix() . 'invoices');
         $this->db->join(db_prefix() . 'clients', '' . db_prefix() . 'invoices.clientid = ' . db_prefix() . 'clients.userid', 'left');
         $this->db->where($where);
-		$this->db->where('status !=', self::STATUS_CANCELLED);
-		$this->db->where('status !=', self::STATUS_DRAFT);
-		$this->db->where('status !=', self::STATUS_PARTIALLY);
-		$this->db->where('status !=', self::STATUS_PAID);
-		
-		$this->db->order_by('number,YEAR(date)', 'desc');
-        return $this->db->get()->result_array();
+	$this->db->where('status !=', self::STATUS_CANCELLED);
+	$this->db->where('status !=', self::STATUS_DRAFT);
+	$this->db->where('status !=', self::STATUS_PARTIALLY);
+	$this->db->where('status !=', self::STATUS_PAID);	
+	$this->db->order_by('number,YEAR(date)', 'desc');
+        	return $this->db->get()->result_array();
     	
 	}
   
