@@ -38,14 +38,5 @@ function boletos_menu_item_collapsible() {
         'view' => ('boletos/includes/boletos'),
         'position' => 100,
     ]);
-
-
-
-
-
-
-
-
-
 }
 
